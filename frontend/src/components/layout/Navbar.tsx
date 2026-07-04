@@ -57,6 +57,19 @@ export default function Navbar() {
             md:flex
           "
         >
+					 <Link
+            href="/"
+            className="
+              text-sm
+              font-medium
+              text-gray-300
+              transition-colors
+              hover:text-white
+            "
+          >
+            Home
+          </Link>
+
           <Link
             href="#features"
             className="
