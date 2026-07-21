@@ -40,14 +40,7 @@ export default function StatsOverview() {
 
             <div
               key={item.title}
-              className="
-                rounded-3xl
-                border
-                border-white/10
-                bg-[#202020]
-                p-8
-              "
-            >
+              className="rounded-3xl border border-white/10 bg-[#202020] p-8">
 
               <Icon className="mb-5 h-8 w-8 text-violet-400" />
 

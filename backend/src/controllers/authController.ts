@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { Request, Response } from 'express';
 import expressAsyncHandler from "express-async-handler";
 import { success } from 'zod';
@@ -93,7 +94,6 @@ if (!isPasswordCorrect) {
   return;
 }
 const JWT_SECRET = process.env.JWT_SECRET as string;
-
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN as jwt.SignOptions["expiresIn"];
 
 const token = jwt.sign(
@@ -107,12 +107,17 @@ const token = jwt.sign(
   }
 );
 
+console.log("Setting cookie...");
+console.log("Token:", token);
+
 res.cookie("accessToken", token, {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
   sameSite: "strict",
   maxAge: 24 * 60 * 60 * 1000,
 });
+
+console.log("Cookie set");
 
 res.status(200).json({
   success: true,
@@ -129,5 +134,52 @@ return;
 } catch (error) {
 	res.status(500).json({success:false,message:"Internal server errror"});
 	return;
+}
+})
+
+export const fetchLoggedUserData = expressAsyncHandler(async(req: Request, res: Response): Promise<void> => {
+console.log('fetchLoggedUserData reached');
+
+try {
+	const authUser = res.locals.user;
+
+	const user = await prisma.user.findUnique({
+		where : {
+			id: authUser.userId,
+		},
+		 select: {
+     id: true,
+     fullName: true,
+     email: true,
+     },
+	})
+
+	 if (!user) {
+		console.log('no such user is there');
+		
+        res.status(401).json({
+          success: false,
+          message: "Unauthorized",
+        });
+        return;
+      }
+	
+	 res.status(200).json({
+        success: true,
+        message: "User fetched successfully.",
+        user,
+      });
+
+      return;
+			
+		} catch (error) {
+	console.error("Fetch logged user error:", error);
+
+      res.status(500).json({
+        success: false,
+        message: "Internal server error.",
+      });
+
+      return;
 }
 })

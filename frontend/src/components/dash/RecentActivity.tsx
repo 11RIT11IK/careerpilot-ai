@@ -1,14 +1,7 @@
 export default function RecentActivity() {
   return (
     <section
-      className="
-        rounded-3xl
-        border
-        border-white/10
-        bg-[#202020]
-        p-8
-      "
-    >
+      className="rounded-3xl border border-white/10 bg-[#202020] p-8">
 
       <h2 className="text-2xl font-semibold text-white">
         Recent Activity

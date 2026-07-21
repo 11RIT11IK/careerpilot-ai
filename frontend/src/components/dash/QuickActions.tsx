@@ -52,20 +52,7 @@ export default function QuickActions() {
             <Link
               key={item.title}
               href={item.href}
-              className="
-                group
-                rounded-3xl
-                border
-                border-white/10
-                bg-[#202020]
-                p-8
-                transition-all
-                duration-300
-                hover:-translate-y-1
-                hover:border-violet-500
-                hover:shadow-lg
-                hover:shadow-violet-500/10
-              "
+             className="group rounded-3xl border border-white/10 bg-[#202020] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-violet-500 hover:shadow-lg hover:shadow-violet-500/10"
             >
 
               <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-500/10">

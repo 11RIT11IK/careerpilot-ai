@@ -90,11 +90,12 @@ const handleLoginSubmission = async (event: React.FormEvent<HTMLFormElement>) =>
 
 	try {
 
-  const response  = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,userData,{
-  timeout: 10000
-	})
+		const response  = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,userData,{
+		withCredentials: true,
+    timeout: 10000,
+		})
 
-	router.push("/dashboard");
+		router.replace("/dashboard");
 	
 
 	} catch (error) {
@@ -102,6 +103,9 @@ const handleLoginSubmission = async (event: React.FormEvent<HTMLFormElement>) =>
 
     const status = error.response?.status;
     const data = error.response?.data;
+
+		console.log("Status:", error.response?.status);
+		console.log("Data:", error.response?.data);
 
     switch (status) {
 
