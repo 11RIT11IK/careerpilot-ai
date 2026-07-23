@@ -10,9 +10,46 @@ import {
   User,
   LogOut,
 } from "lucide-react";
+import { useState } from "react";
+import LogoutConfirmationModal from "../common/LogoutConfirmationModal";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "sonner";
 
 export default function DashboardSidebar() {
+
+const router = useRouter();
+const [ showLogoutModal,setLogoutModal ] = useState(false);
+const [logoutLoading, setLogoutLoading] = useState(false);
+
+const handleLogout = async () => {
+  setLogoutLoading(true);
+
+  try {
+
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+
+    router.replace("/login");
+
+  } catch (error) {
+
+    toast.error("Unable to sign out. Please try again.");
+
+  } finally {
+
+    setLogoutLoading(false);
+
+  }
+};
+
   return (
+		<>
     <aside
       className="
         sticky
@@ -101,6 +138,7 @@ export default function DashboardSidebar() {
             hover:bg-red-500/10
             hover:text-red-400
           "
+					onClick={() => setLogoutModal(true)}
         >
           <LogOut size={20} />
 
@@ -111,6 +149,16 @@ export default function DashboardSidebar() {
       </div>
 
     </aside>
+
+	<LogoutConfirmationModal
+  open={showLogoutModal}
+  onOpenChange={setLogoutModal}
+  loading={logoutLoading}
+  onConfirm={handleLogout}
+/>
+
+</>
+
   );
 }
 

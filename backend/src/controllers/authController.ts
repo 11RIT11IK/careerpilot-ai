@@ -183,3 +183,34 @@ try {
       return;
 }
 })
+
+export const handleSignOut = expressAsyncHandler(async (req: Request, res: Response): Promise<void> => {
+    try {
+
+      res.clearCookie("accessToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+      });
+
+      res.status(200).json({
+        success: true,
+        message: "Signed out successfully.",
+      });
+
+      return;
+
+    } catch (error) {
+
+      console.error("Sign out error:", error);
+
+      res.status(500).json({
+        success: false,
+        message: "Internal server error.",
+      });
+
+      return;
+
+    }
+  }
+);
