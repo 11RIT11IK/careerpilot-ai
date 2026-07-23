@@ -5,6 +5,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from "cookie-parser";
 import authRoutes from './routes/authRoutes'
+import dashboardRoutes from './routes/dashboardRoutes'
 
 const app: Application = express(); //creating our backend express server
 
@@ -21,5 +22,6 @@ app.use(cookieParser());
 
 //define routes
 app.use('/auth',authRoutes)
+app.use('/dashboard',dashboardRoutes)
 
 export default app;
