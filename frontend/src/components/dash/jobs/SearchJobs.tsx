@@ -317,7 +317,8 @@ const handleSearchJobs = async(event: React.FormEvent<HTMLFormElement>) => {
       </section>
 
 			{/* Recommended jobs */}
-		<section
+
+      <section
   className="
     mt-10
     rounded-3xl
@@ -331,47 +332,71 @@ const handleSearchJobs = async(event: React.FormEvent<HTMLFormElement>) => {
     Recommended Jobs
   </h2>
 
-  {recommendedJobs.length === 0 ? (
+  {searchLoading ? (
 
-    <div className="flex flex-col items-center justify-center py-20 text-center">
+	<div className="flex flex-col items-center py-20">
 
-      <div
-        className="
-          mb-6
-          flex
-          h-20
-          w-20
-          items-center
-          justify-center
-          rounded-full
-          bg-violet-500/10
-          text-5xl
-        "
-      >
-        🤖
-      </div>
+  <div className="mb-8 h-16 w-16 animate-spin rounded-full border-4 border-violet-500 border-t-transparent" />
 
-      <h3 className="text-2xl font-semibold text-white">
-        Your AI recommendations will appear here
-      </h3>
+  <h3 className="text-2xl font-semibold text-white">
+    CareerPilot AI is searching...
+  </h3>
 
-      <p className="mt-4 max-w-xl leading-7 text-zinc-400">
-        Search for a role to discover AI-powered job recommendations
-        tailored to your skills, experience and career goals.
-      </p>
+  <p className="mt-4 text-zinc-400">
+    Analyzing your request and finding the best opportunities.
+  </p>
 
-      <p className="mt-2 text-sm text-zinc-500">
-        Start by entering a job title above and click
-        <span className="font-medium text-violet-400">
-          {" "}Search Jobs
-        </span>.
-      </p>
+  <div className="mt-10 w-full max-w-lg space-y-4">
 
-    </div>
+    <div className="h-4 animate-pulse rounded bg-zinc-700" />
 
-  ) : (
+    <div className="h-4 w-5/6 animate-pulse rounded bg-zinc-700" />
 
-    <div className="grid gap-6">
+    <div className="h-4 w-4/6 animate-pulse rounded bg-zinc-700" />
+
+  </div>
+
+</div>
+
+	) : recommendedJobs.length === 0 ? (
+    
+		<div className="flex flex-col items-center justify-center py-20 text-center">
+
+  <div
+    className="
+      mb-6
+      flex
+      h-20
+      w-20
+      items-center
+      justify-center
+      rounded-full
+      bg-violet-500/10
+      text-5xl
+    "
+  >
+    🤖
+  </div>
+
+  <h3 className="text-2xl font-semibold text-white">
+    Discover AI-Powered Job Matches
+  </h3>
+
+  <p className="mt-4 max-w-xl leading-7 text-zinc-400">
+    Enter your preferred role, location and experience above.
+    CareerPilot AI will analyze your profile and recommend the
+    most relevant job opportunities.
+  </p>
+
+  <p className="mt-3 text-sm text-zinc-500">
+    Your personalized recommendations will appear here.
+  </p>
+
+</div>
+
+	) : (
+
+		 <div className="grid gap-6">
 
       {recommendedJobs.map((job, index) => (
 
@@ -437,9 +462,10 @@ const handleSearchJobs = async(event: React.FormEvent<HTMLFormElement>) => {
 
     </div>
 
-  )}
+  )
+  }
 
-		</section>
+		  </section>
 
 
       {/* AI Tips */}
