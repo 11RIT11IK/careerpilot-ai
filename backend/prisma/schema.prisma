@@ -22,6 +22,7 @@ createdAt DateTime @default(now())
 updatedAt DateTime @updatedAt	
 
 jobSearches JobSearch[]
+interviewSessions InterviewSession[]
 }
 
 model JobSearch {
@@ -37,3 +38,55 @@ model JobSearch {
 
   @@map("job_searches")
 }
+
+model InterviewSession {
+
+  id              Int      @id @default(autoincrement())
+
+  jobTitle        String
+
+  company         String?
+
+  experience      String
+
+  interviewType   String
+
+  focusAreas      String?
+
+  createdAt       DateTime @default(now())
+
+  userId          Int
+
+  user            User @relation(fields:[userId],references:[id])
+
+  questions       InterviewQuestion[]
+
+  @@map("interview_sessions")
+
+}
+
+model InterviewQuestion {
+
+  id               Int @id @default(autoincrement())
+
+  question         String
+
+  category         String
+
+	difficulty       String
+
+	expectedTopics   Json
+
+  referenceAnswer  String?
+
+  createdAt        DateTime @default(now())
+
+  sessionId        Int
+
+  session          InterviewSession @relation(fields:[sessionId],references:[id])
+
+  @@map("interview_questions")
+
+}
+
+

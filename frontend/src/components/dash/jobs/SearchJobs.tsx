@@ -108,11 +108,10 @@ const handleSearchJobs = async(event: React.FormEvent<HTMLFormElement>) => {
 	setRecommendedJobs(response.data.jobs);
 
 	} catch (error) {
+		console.error('something went wrong,Please try again later')
 		
 	} finally {
-    setSearchLoading(false
-			
-		)
+    setSearchLoading(false)
 
 	}
 
