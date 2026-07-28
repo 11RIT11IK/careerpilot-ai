@@ -1,6 +1,6 @@
 import DashboardHero from "./DashboardHero";
 import QuickActions from "./QuickActions";
-import RecentActivity from "./RecentActivity";
+// import RecentActivity from "./RecentActivity";
 import StatsOverview from "./StatsOverview";
 
 
@@ -20,9 +20,9 @@ export default function Dashboard() {
         <StatsOverview />
       </section>
 
-      <section>
+      {/* <section>
         <RecentActivity />
-      </section>
+      </section> */}
 
     </div>
   );

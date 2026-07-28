@@ -5,6 +5,10 @@ import { success } from "zod";
 import prisma from "../config/database";
 import { searchJobsUsingAI } from "../services/AI/jobSearch.service";
 import { generateInterviewUsingAi } from "../services/AI/interview.service";
+import { generateRoadMapUsingAi } from "../services/AI/roadmap.service";
+import { uploadResumeToCloudinary } from "../services/cloudinary/resumeUploadService";
+import { extractResumeContent } from "../services/resume/resumeContentExtractor";
+import { optimizeResumeUsingAi } from "../services/AI/resume.service";
 
 export const handleSearchJobs = expressAsyncHandler(async(req: Request, res: Response): Promise<void> => {
 
@@ -126,4 +130,170 @@ return;
  return;
 
 }
+})
+
+export const handleGenerateCareerRoadMap = expressAsyncHandler(async(req: Request, res: Response): Promise<void> => {
+
+  console.log('data ',req.body)
+  const { currentRole, targetRole, experience, timeline, currentSkills = null } = req.body
+	const userId = res.locals.user.userId
+
+	try {
+
+		if(!currentRole || !targetRole){
+			res.status(400).json({success:false,message:"Bad request! currentRole and targetRole is required."})
+			return;
+		}
+
+		const careerRoadMapHistory = await prisma.careerRoadmap.create({
+			data:{
+
+				currentRole,
+				targetRole,
+				experience,
+				currentSkills,
+				timeline,
+				userId
+
+			}
+		})
+
+		const careerRoadmapData = {
+		currentRole,
+		targetRole,
+		experience,
+		currentSkills,
+		timeline
+		}
+
+		const roadMapresultFromAi = await generateRoadMapUsingAi(careerRoadmapData);
+		console.log('roadMapresultFromAi',roadMapresultFromAi);
+
+	interface RoadmapPhase {
+  phaseNumber: number;
+  phaseTitle: string;
+  duration: string;
+  description: string;
+  technologies: string[];
+  projects: string[];
+  certifications: string[];
+}
+
+	const roadmapResponseFromAi = await prisma.careerRoadmapStep.createMany({
+		data: roadMapresultFromAi.roadmap.map((phase: RoadmapPhase) => ({
+    phaseNumber: phase.phaseNumber,
+    phaseTitle: phase.phaseTitle,
+    duration: phase.duration,
+    description: phase.description,
+    technologies: phase.technologies,
+    projects: phase.projects,
+    certifications: phase.certifications,
+    roadmapId: careerRoadMapHistory.id,
+  })),
+	})
+
+	res.status(200).json({
+		success: true,
+		roadmap: roadMapresultFromAi,
+	});
+
+	return;
+
+} catch (error) {
+	
+ res.status(500).json({success:false,message:'Something went wrong,Please try again later.'})
+ return;
+
+	}
+})
+
+export const handleOptimizeResume = expressAsyncHandler(async(req: Request, res: Response): Promise<void> => {
+	const { targetJobRole, experience } = req.body
+	const resume  = req.file
+	const userId = res.locals.user.userId;
+	let resumeRequestsStore;
+
+
+
+	try {
+
+		if(!targetJobRole || !experience || !resume){
+    res.status(400).json({success:false,message:"Bad request! targetJobRole,experience and resume is required."})
+		return;
+		}
+
+	//first thing we do is store user given resume to cloudinary right 
+	// Upload resume to Cloudinary
+
+    const uploadedResume = await uploadResumeToCloudinary(resume);
+    console.log(uploadedResume);
+
+	 resumeRequestsStore = await prisma.resumeRequest.create({
+		data: {
+			targetJobRole,
+			experience,
+      resumeUrl: uploadedResume.secureUrl,
+			resumePublicId: uploadedResume.publicId,
+			originalFileName: uploadedResume.originalFileName,
+			fileType: uploadedResume.fileType,
+			fileSize: uploadedResume.fileSize,
+      status: "Processing",
+      userId,
+		},
+		});
+
+		//now we need to pass targetJobRole,experience and extracted text from resume right to optimize reume to ai service pass as an argument
+		const extractedResumeText = await extractResumeContent(resume);
+
+	const resumeDataForAi = {
+  targetJobRole,
+  experience,
+  resumeContent: extractedResumeText,
+	};
+
+	const aiResponse = await optimizeResumeUsingAi(
+	resumeDataForAi
+	);
+
+	console.log('ai response',aiResponse);
+	
+
+	//we need to store its ai response right
+   await prisma.resumeRequest.update({
+        where: {
+          id: resumeRequestsStore.id,
+        },
+        data: {
+          aiResponse,
+          status: "Completed",
+        },
+    });
+
+ res.status(200).json({
+ success: true,
+ resumeOptimization: aiResponse,
+ });
+
+   return;
+		
+	} catch (error) {
+
+		 if (resumeRequestsStore) {
+        await prisma.resumeRequest.update({
+          where: {
+            id: resumeRequestsStore.id,
+          },
+          data: {
+            status: "Failed",
+          },
+        });
+      }
+		
+		 res.status(500).json({
+        success: false,
+        message: "Something went wrong. Please try again later.",
+      });
+
+      return;
+	}
 })

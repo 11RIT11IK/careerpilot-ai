@@ -23,6 +23,9 @@ updatedAt DateTime @updatedAt
 
 jobSearches JobSearch[]
 interviewSessions InterviewSession[]
+careerRoadmaps CareerRoadmap[]
+resumeRequests     ResumeRequest[]
+
 }
 
 model JobSearch {
@@ -87,6 +90,89 @@ model InterviewQuestion {
 
   @@map("interview_questions")
 
+}
+
+model CareerRoadmap {
+
+  id                 Int       @id @default(autoincrement())
+
+  currentRole        String
+
+  targetRole         String
+
+  experience         String
+
+  currentSkills      String?
+
+  timeline           String
+
+  createdAt          DateTime  @default(now())
+
+  userId             Int
+  user               User      @relation(fields: [userId], references: [id])
+
+  roadmapSteps       CareerRoadmapStep[]
+
+  @@map("career_roadmaps")
+}
+
+model CareerRoadmapStep {
+
+  id            Int      @id @default(autoincrement())
+
+  phaseNumber   Int
+
+  phaseTitle    String
+
+  duration      String
+
+  description   String
+
+  technologies  Json?
+
+  projects      Json?
+
+  certifications Json?
+
+  createdAt     DateTime @default(now())
+
+  roadmapId      Int
+  roadmap        CareerRoadmap @relation(fields: [roadmapId], references: [id])
+
+  @@map("career_roadmap_steps")
+}
+
+model ResumeRequest {
+
+  id                 Int      @id @default(autoincrement())
+
+  targetJobRole      String
+
+  experience         String
+
+  resumeUrl          String
+
+  resumePublicId     String
+
+  originalFileName   String
+
+  fileType           String
+
+  fileSize           Int
+
+  status             String   @default("Processing")
+
+  aiResponse         Json?
+
+  createdAt          DateTime @default(now())
+
+  updatedAt          DateTime @updatedAt
+
+  userId             Int
+
+  user               User @relation(fields: [userId], references: [id])
+
+  @@map("resume_requests")
 }
 
 
