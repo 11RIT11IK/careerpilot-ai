@@ -6,25 +6,31 @@ const steps = [
     step: "01",
     title: "Create Your Profile",
     description:
-      "Sign up and tell CareerPilot AI about your education, experience, and career goals.",
+      "Sign up and tell CareerPilot AI about your education, experience, skills, and career goals.",
   },
   {
     step: "02",
-    title: "Upload Your Resume",
+    title: "Optimize Your Resume",
     description:
-      "Our AI analyzes your resume, identifies strengths, weaknesses, and ATS compatibility.",
+      "Upload your resume to receive AI-powered ATS scoring, personalized feedback, and improvement suggestions.",
   },
   {
     step: "03",
-    title: "Receive Your AI Roadmap",
+    title: "Build Your Career Roadmap",
     description:
-      "Get a personalized learning roadmap with recommended skills, projects, and certifications.",
+      "Generate a personalized learning roadmap with recommended technologies, projects, certifications, and milestones.",
   },
   {
     step: "04",
-    title: "Practice & Grow",
+    title: "Practice & Improve",
     description:
-      "Prepare for interviews, improve your resume, and track your career progress with AI guidance.",
+      "Prepare for technical and HR interviews with AI mock interviews, skill-gap analysis, and personalized guidance.",
+  },
+  {
+    step: "05",
+    title: "Discover Your Next Job",
+    description:
+      "Search AI-curated job opportunities tailored to your skills, experience, and career aspirations, and start applying with confidence.",
   },
 ];
 

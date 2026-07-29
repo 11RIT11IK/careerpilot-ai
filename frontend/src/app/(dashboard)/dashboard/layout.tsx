@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation";
 import FullPageLoader from "@/components/common/FullPageLoader";
 import { DashboardProvider } from "@/context/DashboardContext";
 import DashboardSidebar from "@/components/dash/DashboardSidebar";
+import DashBoardNavbar from "@/components/layout/dashboard/dashboardNavbar";
+import DashboardFooter from "@/components/layout/dashboard/dashboardFooter";
 
 
 export default function DashboardLayout({
@@ -80,6 +82,7 @@ const fetchCurrentUser = async (): Promise<void> => {
       ) : (
 
 			<DashboardProvider user={user}>
+			<DashBoardNavbar />
 			<div className="flex">
 
 				<DashboardSidebar />
@@ -89,7 +92,8 @@ const fetchCurrentUser = async (): Promise<void> => {
 				</div>
 
 			</div>
-		</DashboardProvider>
+			<DashboardFooter />
+		  </DashboardProvider>
 
 			   	)
 			

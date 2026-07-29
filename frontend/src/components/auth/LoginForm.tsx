@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Sparkles, Loader2 } from "lucide-react"
+import { ArrowRight, CheckCircle2, Sparkles, Loader2, Eye, EyeOff } from "lucide-react"
 
 import FadeUp from "@/components/animations/FadeUp";
 import { Button } from "@/components/ui/button";
@@ -36,6 +36,8 @@ const router = useRouter()
 	})
 
 const [buttonLoading,setButtonLoading] = useState(false);
+const [showPassword, setShowPassword] = useState(false);
+
 
 const validateForm = (): boolean => {
 	const newLoginErrors: LoginErrors = {
@@ -274,17 +276,20 @@ const handleLoginSubmission = async (event: React.FormEvent<HTMLFormElement>) =>
                   Password
                 </label>
 
-                <Link
+                {/* <Link
                   href="/forgot-password"
                   className="text-sm text-violet-400 hover:text-violet-300"
                 >
                   Forgot Password?
-                </Link>
+                </Link> */}
 
               </div>
 
+							<div className="relative">
+
+
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
 								value={loginData.password}
 								onChange={(e) => {
 									handleOnChange("password",e.target.value)
@@ -293,6 +298,27 @@ const handleLoginSubmission = async (event: React.FormEvent<HTMLFormElement>) =>
                 placeholder="••••••••"
                 className="w-full rounded-xl border border-white/10 bg-[#171717] px-4 py-3 text-white outline-none transition-all placeholder:text-zinc-500 focus:border-violet-500"
               />
+								<button
+									type="button"
+									onClick={() => setShowPassword(!showPassword)}
+									className="
+										absolute
+										right-4
+										top-1/2
+										-translate-y-1/2
+										text-zinc-400
+										hover:text-white
+									"
+								>
+									{showPassword ? (
+										<EyeOff size={20} />
+									) : (
+										<Eye size={20} />
+									)}
+								</button>
+
+                </div>
+
 							{
 								loginErrors.password && (
 								<p className="mt-2 text-sm text-red-400">
@@ -325,7 +351,7 @@ const handleLoginSubmission = async (event: React.FormEvent<HTMLFormElement>) =>
 
           {/* Divider */}
 
-          <div className="my-8 flex items-center">
+          {/* <div className="my-8 flex items-center">
 
             <div className="h-px flex-1 bg-white/10" />
 
@@ -335,16 +361,16 @@ const handleLoginSubmission = async (event: React.FormEvent<HTMLFormElement>) =>
 
             <div className="h-px flex-1 bg-white/10" />
 
-          </div>
+          </div> */}
 
           {/* Google */}
 
-          <Button
+          {/* <Button
             variant="outline"
             className="w-full rounded-full border-white/10 bg-transparent py-6 text-white hover:bg-white/5"
           >
             Continue with Google
-          </Button>
+          </Button> */}
 
           {/* Footer */}
 

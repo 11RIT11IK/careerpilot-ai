@@ -468,7 +468,7 @@ catch (error) {
 
 {/* Divider */}
 
-<div className="my-8 flex items-center">
+{/* <div className="my-8 flex items-center">
 
   <div className="h-px flex-1 bg-white/10" />
 
@@ -478,16 +478,16 @@ catch (error) {
 
   <div className="h-px flex-1 bg-white/10" />
 
-</div>
+</div> */}
 
 {/* Google Button */}
 
-<Button
+{/* <Button
   variant="outline"
   className="w-full rounded-full border-white/10 bg-transparent py-6 text-white hover:bg-white/5"
 >
   Continue with Google
-</Button>
+</Button> */}
 
 {/* Login Link */}
 
