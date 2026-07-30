@@ -1,0 +1,178 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+	url      = env("DATABASE_URL")
+
+}
+
+model User {
+id        Int      @id @default(autoincrement())
+fullName  String
+email     String   @unique
+password  String
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt	
+
+jobSearches JobSearch[]
+interviewSessions InterviewSession[]
+careerRoadmaps CareerRoadmap[]
+resumeRequests     ResumeRequest[]
+
+}
+
+model JobSearch {
+  id             Int      @id @default(autoincrement())
+  jobTitle       String
+  location       String
+  experience     String
+  idealJobDesc   String?
+  createdAt      DateTime @default(now())
+
+  userId         Int
+  user           User     @relation(fields: [userId], references: [id])
+
+  @@map("job_searches")
+}
+
+model InterviewSession {
+
+  id              Int      @id @default(autoincrement())
+
+  jobTitle        String
+
+  company         String?
+
+  experience      String
+
+  interviewType   String
+
+  focusAreas      String?
+
+  createdAt       DateTime @default(now())
+
+  userId          Int
+
+  user            User @relation(fields:[userId],references:[id])
+
+  questions       InterviewQuestion[]
+
+  @@map("interview_sessions")
+
+}
+
+model InterviewQuestion {
+
+  id               Int @id @default(autoincrement())
+
+  question         String
+
+  category         String
+
+	difficulty       String
+
+	expectedTopics   Json
+
+  referenceAnswer  String?
+
+  createdAt        DateTime @default(now())
+
+  sessionId        Int
+
+  session          InterviewSession @relation(fields:[sessionId],references:[id])
+
+  @@map("interview_questions")
+
+}
+
+model CareerRoadmap {
+
+  id                 Int       @id @default(autoincrement())
+
+  currentRole        String
+
+  targetRole         String
+
+  experience         String
+
+  currentSkills      String?
+
+  timeline           String
+
+  createdAt          DateTime  @default(now())
+
+  userId             Int
+  user               User      @relation(fields: [userId], references: [id])
+
+  roadmapSteps       CareerRoadmapStep[]
+
+  @@map("career_roadmaps")
+}
+
+model CareerRoadmapStep {
+
+  id            Int      @id @default(autoincrement())
+
+  phaseNumber   Int
+
+  phaseTitle    String
+
+  duration      String
+
+  description   String
+
+  technologies  Json?
+
+  projects      Json?
+
+  certifications Json?
+
+  createdAt     DateTime @default(now())
+
+  roadmapId      Int
+  roadmap        CareerRoadmap @relation(fields: [roadmapId], references: [id])
+
+  @@map("career_roadmap_steps")
+}
+
+model ResumeRequest {
+
+  id                 Int      @id @default(autoincrement())
+
+  targetJobRole      String
+
+  experience         String
+
+  resumeUrl          String
+
+  resumePublicId     String
+
+  originalFileName   String
+
+  fileType           String
+
+  fileSize           Int
+
+  status             String   @default("Processing")
+
+  aiResponse         Json?
+
+  createdAt          DateTime @default(now())
+
+  updatedAt          DateTime @updatedAt
+
+  userId             Int
+
+  user               User @relation(fields: [userId], references: [id])
+
+  @@map("resume_requests")
+}
+
+
