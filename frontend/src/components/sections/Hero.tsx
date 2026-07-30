@@ -55,19 +55,22 @@ export default function Hero() {
 
           <div className="mt-10 flex flex-wrap gap-4">
             <FadeUp delay={0.4}>
-
-            <Button className="rounded-full px-8">
+            
+						<Link href="/login">
+						<Button className="rounded-full px-8">
               Get Started
             <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
+						</Link>
+           
 
-
+{/* 
             <Button
               variant="outline"
               className="rounded-full border-white/10 bg-transparent px-8 text-white hover:bg-white/10"
             >
               Watch Demo
-            </Button>
+            </Button> */}
 						</FadeUp>
 
 

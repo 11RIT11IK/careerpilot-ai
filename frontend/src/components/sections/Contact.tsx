@@ -36,86 +36,113 @@ export default function Contact() {
 
         </FadeUp>
 
-        <div className="mt-20 grid gap-12 lg:grid-cols-2">
+        <div className="mt-20">
 
           {/* Contact Information */}
 
-          <FadeUp delay={0.2}>
+				<FadeUp delay={0.2}>
 
-            <div className="space-y-8">
+			<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
 
-              <div className="rounded-3xl border border-white/10 bg-[#212121] p-8">
+				<div
+					className="
+						flex
+						min-h-[200px]
+						flex-col
+						items-center
+						justify-center
+						rounded-3xl
+						border
+						border-white/10
+						bg-[#212121]
+						px-8
+						text-center
+						transition-all
+						duration-300
+						hover:-translate-y-1
+						hover:border-violet-500/40
+					"
+				>
+					<Mail className="mb-6 h-10 w-10 text-violet-400" />
 
-                <div className="flex items-center gap-4">
+					<h3 className="text-xl font-semibold text-white">
+						Email
+					</h3>
 
-                  <Mail className="h-6 w-6 text-violet-400" />
+					<p className="mt-3 text-zinc-400 break-all">
+						hrithik.prasad.personal@gmail.com
+					</p>
 
-                  <div>
+				</div>
 
-                    <h3 className="font-semibold text-white">
-                      Email
-                    </h3>
+				<div
+					className="
+						flex
+						min-h-[200px]
+						flex-col
+						items-center
+						justify-center
+						rounded-3xl
+						border
+						border-white/10
+						bg-[#212121]
+						px-8
+						text-center
+						transition-all
+						duration-300
+						hover:-translate-y-1
+						hover:border-violet-500/40
+					"
+				>
+					<MapPin className="mb-6 h-10 w-10 text-violet-400" />
 
-                    <p className="text-zinc-400">
-                      hrithik.prasad.personal@gmail.com
-                    </p>
+					<h3 className="text-xl font-semibold text-white">
+						Location
+					</h3>
 
-                  </div>
+					<p className="mt-3 text-zinc-400">
+						India
+					</p>
 
-                </div>
+				</div>
 
-              </div>
+				<div
+					className="
+						flex
+						min-h-[200px]
+						flex-col
+						items-center
+						justify-center
+						rounded-3xl
+						border
+						border-white/10
+						bg-[#212121]
+						px-8
+						text-center
+						transition-all
+						duration-300
+						hover:-translate-y-1
+						hover:border-violet-500/40
+					"
+				>
+					<Clock className="mb-6 h-10 w-10 text-violet-400" />
 
-              <div className="rounded-3xl border border-white/10 bg-[#212121] p-8">
+					<h3 className="text-xl font-semibold text-white">
+						Response Time
+					</h3>
 
-                <div className="flex items-center gap-4">
+					<p className="mt-3 text-zinc-400">
+						Usually within 24 hours
+					</p>
 
-                  <MapPin className="h-6 w-6 text-violet-400" />
+				</div>
 
-                  <div>
+			</div>
 
-                    <h3 className="font-semibold text-white">
-                      Location
-                    </h3>
-
-                    <p className="text-zinc-400">
-                      India
-                    </p>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div className="rounded-3xl border border-white/10 bg-[#212121] p-8">
-
-                <div className="flex items-center gap-4">
-
-                  <Clock className="h-6 w-6 text-violet-400" />
-
-                  <div>
-
-                    <h3 className="font-semibold text-white">
-                      Response Time
-                    </h3>
-
-                    <p className="text-zinc-400">
-                      Usually within 24 hours
-                    </p>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </FadeUp>
+				</FadeUp>
 
           {/* Contact Form */}
-
+{/* 
           <FadeUp delay={0.4}>
 
             <form className="rounded-3xl border border-white/10 bg-[#212121] p-8">
@@ -174,7 +201,7 @@ export default function Contact() {
 
             </form>
 
-          </FadeUp>
+          </FadeUp> */}
 
         </div>
 

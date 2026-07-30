@@ -2,9 +2,11 @@
 //so our backend have only direct connection with prisma not postgresql
 //so if they want  to perform sql queries we just call prisma connection and tell them
 
-import { PrismaClient } from "@prisma/client/extension";
+// src/lib/prisma.ts
 
-const prisma = new PrismaClient(); //created prisma connection
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export default prisma;
 

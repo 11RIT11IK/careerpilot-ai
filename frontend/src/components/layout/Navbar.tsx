@@ -3,6 +3,7 @@ import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
+
   return (
     <nav
       className="
@@ -71,7 +72,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="#features"
+            href="/#features"
             className="
               text-sm
               font-medium
@@ -84,7 +85,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="#how-it-works"
+            href="/#how-it-works"
             className="
               text-sm
               font-medium
@@ -97,7 +98,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="#pricing"
+            href="/#pricing"
             className="
               text-sm
               font-medium
@@ -110,7 +111,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="#contact"
+            href="/#contact"
             className="
               text-sm
               font-medium
@@ -145,6 +146,8 @@ export default function Navbar() {
             Login
           </Link>
 
+          <Link href="/signup">
+
           <Button
             className="
               rounded-full
@@ -153,6 +156,7 @@ export default function Navbar() {
           >
             Get Started
           </Button>
+					</Link>
         </div>
       </div>
     </nav>

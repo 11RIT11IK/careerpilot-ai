@@ -5,6 +5,7 @@ import {
   BarChart3,
   MessageSquare,
   Route,
+	Search
 } from "lucide-react";
 
 import GridBackground from "@/components/effects/GridBackground";
@@ -42,10 +43,10 @@ const features = [
       "Ask career questions anytime and receive intelligent guidance instantly.",
   },
   {
-    icon: BarChart3,
-    title: "Progress Tracking",
+    icon: Search,
+    title: "AI Job Search",
     description:
-      "Track your learning progress, resume score, interview readiness, and goals.",
+      "Discover relevant job opportunities tailored to your skills, experience, and career goals using AI.",
   },
 ];
 
