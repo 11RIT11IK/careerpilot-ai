@@ -64,13 +64,13 @@ export default function Hero() {
 						</Link>
            
 
-
+{/* 
             <Button
               variant="outline"
               className="rounded-full border-white/10 bg-transparent px-8 text-white hover:bg-white/10"
             >
               Watch Demo
-            </Button>
+            </Button> */}
 						</FadeUp>
 
 
