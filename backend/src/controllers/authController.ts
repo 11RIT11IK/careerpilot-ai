@@ -7,7 +7,6 @@ import prisma from "../config/database";
 import jwt from "jsonwebtoken";
 
 export const handleRegisterUser = expressAsyncHandler(async(req: Request, res: Response): Promise<void> => {
-console.log('data passed for registeration',req.body);
 const {fullName, email, password } = req.body
 
 try {
@@ -15,7 +14,6 @@ try {
 //first thing here we can hash our password to store in db using bcrypt
 const saltRounds = 10;
 const hashedPassword: string = await bcrypt.hash(password,saltRounds);
-console.log('hashed password: ',hashedPassword);
 
 //now we need to write prisma commands for wht we need to do so it will tell prisma then prisma to postgresql right
 const existingUser = await prisma.user.findUnique({
@@ -57,7 +55,6 @@ const user = await prisma.user.create({
 
 export const handleLoginUser = expressAsyncHandler(async(req: Request, res: Response): Promise<void> => {
 const {email ,password } = req.body
-console.log('handleLoginUser reached');
 
 try {
 
@@ -70,7 +67,6 @@ try {
 	})
 
 	if (!existingUser) {
-	console.log('no such user');
 	
   res.status(401).json({
     success: false,
@@ -107,8 +103,6 @@ const token = jwt.sign(
   }
 );
 
-console.log("Setting cookie...");
-console.log("Token:", token);
 
 res.cookie("accessToken", token, {
   httpOnly: true,
@@ -117,7 +111,6 @@ res.cookie("accessToken", token, {
   maxAge: 24 * 60 * 60 * 1000,
 });
 
-console.log("Cookie set");
 
 res.status(200).json({
   success: true,
@@ -138,7 +131,6 @@ return;
 })
 
 export const fetchLoggedUserData = expressAsyncHandler(async(req: Request, res: Response): Promise<void> => {
-console.log('fetchLoggedUserData reached');
 
 try {
 	const authUser = res.locals.user;
@@ -155,7 +147,6 @@ try {
 	})
 
 	 if (!user) {
-		console.log('no such user is there');
 		
         res.status(401).json({
           success: false,

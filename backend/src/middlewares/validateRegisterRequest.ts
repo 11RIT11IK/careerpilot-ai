@@ -2,7 +2,6 @@ import {Request, Response, NextFunction} from 'express'
 import { success } from 'zod';
 
 export const validateRegisterRequest = (req: Request, res: Response, next: NextFunction): void => {
-console.log('validateRegisterRequest reached');
 	
 const {fullName, email, password } = req.body
 const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

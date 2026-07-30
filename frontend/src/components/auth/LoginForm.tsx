@@ -106,8 +106,7 @@ const handleLoginSubmission = async (event: React.FormEvent<HTMLFormElement>) =>
     const status = error.response?.status;
     const data = error.response?.data;
 
-		console.log("Status:", error.response?.status);
-		console.log("Data:", error.response?.data);
+	
 
     switch (status) {
 

@@ -74,7 +74,6 @@ export default function InterviewPrepPage() {
 }
 
 	const handleGenerateInterview = async(event: React.FormEvent<HTMLFormElement>) => {
-  console.log('button clicked');
 	 event.preventDefault()
 
 	//required fields checking

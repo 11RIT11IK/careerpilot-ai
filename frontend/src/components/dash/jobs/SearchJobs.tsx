@@ -77,7 +77,6 @@ const handleOnChange = (elementName: keyof SearchCard, value: string) => {
 }
 
 const handleSearchJobs = async(event: React.FormEvent<HTMLFormElement>) => {
-	console.log('button clicked');
 	event.preventDefault();
 
 	//required fields checking
@@ -93,7 +92,6 @@ const handleSearchJobs = async(event: React.FormEvent<HTMLFormElement>) => {
 		idealJobDesc : searchCardData.idealJobDesc.trim()
 	}
 
-	console.log('searchJobsData',searchJobsData);
 	
 
 	setSearchLoading(true)

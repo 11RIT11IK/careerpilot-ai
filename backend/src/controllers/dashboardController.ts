@@ -45,7 +45,6 @@ const searchData = {
 };
 
 const resultFromAi = await searchJobsUsingAI(searchData);
-console.log('resultFromAi',resultFromAi);
 
 res.status(200).json({
   success: true,
@@ -62,7 +61,6 @@ return;
 })
 
 export const handleGenerateInterview = expressAsyncHandler(async(req: Request, res: Response): Promise<void> => {
-console.log('data',req.body);
 
 const { jobTitle, company = null, experience, interviewType, focusAreas = null } = req.body
 const userId = res.locals.user.userId;
@@ -103,7 +101,6 @@ interface InterviewQuestionAI {
 }
 
 const interviewresultFromAi = await generateInterviewUsingAi(interviewDataFromUser);
-console.log('interviewresultFromAi',interviewresultFromAi);
 
 //in between we need to store ai response in our table right called 
 const generatedQuestions = await prisma.interviewQuestion.createMany({
@@ -134,7 +131,6 @@ return;
 
 export const handleGenerateCareerRoadMap = expressAsyncHandler(async(req: Request, res: Response): Promise<void> => {
 
-  console.log('data ',req.body)
   const { currentRole, targetRole, experience, timeline, currentSkills = null } = req.body
 	const userId = res.locals.user.userId
 
@@ -167,7 +163,6 @@ export const handleGenerateCareerRoadMap = expressAsyncHandler(async(req: Reques
 		}
 
 		const roadMapresultFromAi = await generateRoadMapUsingAi(careerRoadmapData);
-		console.log('roadMapresultFromAi',roadMapresultFromAi);
 
 	interface RoadmapPhase {
   phaseNumber: number;
@@ -226,7 +221,6 @@ export const handleOptimizeResume = expressAsyncHandler(async(req: Request, res:
 	// Upload resume to Cloudinary
 
     const uploadedResume = await uploadResumeToCloudinary(resume);
-    console.log(uploadedResume);
 
 	 resumeRequestsStore = await prisma.resumeRequest.create({
 		data: {
@@ -255,7 +249,6 @@ export const handleOptimizeResume = expressAsyncHandler(async(req: Request, res:
 	resumeDataForAi
 	);
 
-	console.log('ai response',aiResponse);
 	
 
 	//we need to store its ai response right

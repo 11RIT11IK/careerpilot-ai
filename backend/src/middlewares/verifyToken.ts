@@ -3,14 +3,12 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction): void => {
-	console.log('verifyToken reached');
 	
 	try {
 
 		const token = req.cookies?.accessToken;
 
 		if(!token){
-			console.log('no token in verifyToken');
 			
 			  res.status(401).json({
         success: false,
