@@ -43,6 +43,7 @@ const fetchCurrentUser = async (): Promise<void> => {
         }
       );
 		  setUser(response.data.user);
+			setLoading(false)
 
 
 	} catch (error) {
@@ -57,9 +58,8 @@ const fetchCurrentUser = async (): Promise<void> => {
 
   console.error(error);
 		
-	} finally {
-   setLoading(false)
 	}
+
 
 }
 
