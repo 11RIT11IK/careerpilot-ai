@@ -180,11 +180,13 @@ try {
 export const handleSignOut = expressAsyncHandler(async (req: Request, res: Response): Promise<void> => {
     try {
 
-      res.clearCookie("accessToken", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-      });
+     const isProduction = process.env.NODE_ENV === "production";
+
+		res.clearCookie("accessToken", {
+			httpOnly: true,
+			secure: isProduction,
+			sameSite: isProduction ? "none" : "lax",
+		});
 
       res.status(200).json({
         success: true,
