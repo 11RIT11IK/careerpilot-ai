@@ -271,6 +271,8 @@ export const handleOptimizeResume = expressAsyncHandler(async(req: Request, res:
 		
 	} catch (error) {
 
+		
+
 		 if (resumeRequestsStore) {
         await prisma.resumeRequest.update({
           where: {

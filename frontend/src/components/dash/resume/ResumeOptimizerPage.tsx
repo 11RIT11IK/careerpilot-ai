@@ -141,7 +141,7 @@ export default function ResumeOptimizerPage() {
 	};
 
 	const handleResumeOptimization = async(event: React.FormEvent<HTMLFormElement>) => {
-   event.preventDefault();
+  event.preventDefault();
 
 	//required fields checking
 	const isValid: boolean = validateForm();
